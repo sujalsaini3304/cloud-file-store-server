@@ -1,0 +1,13 @@
+  fastapi
+  uvicorn 
+  python-multipart
+  pillow 
+  pymongo 
+  cloudinary 
+  pypdf 
+  docx2txt
+  python-dotenv
+
+
+
+
