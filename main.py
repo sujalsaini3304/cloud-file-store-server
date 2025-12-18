@@ -2,6 +2,10 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException , Query
 from datetime import datetime
 import cloudinary.uploader
 from fastapi.middleware.cors import CORSMiddleware
+import os
+from fastapi.responses import FileResponse 
+from fastapi.staticfiles import StaticFiles
+
 
 import cloudinary_config
 from bson import ObjectId
@@ -28,6 +32,26 @@ def root():
         "message":"Server is running",
         "status":200
     }
+
+
+
+
+# Serving and mounting file
+app.mount("/assets", StaticFiles(directory="dist/assets"), name="assets")
+
+@app.get("/{full_path:path}")
+async def serve_react_app(full_path: str = ""):
+    # Check if the requested path is a file in dist
+    file_path = os.path.join("dist", full_path)
+    
+    # If it's a file that exists, serve it
+    if os.path.isfile(file_path):
+        return FileResponse(file_path)
+    
+    # Otherwise, serve index.html (for React Router)
+    return FileResponse("dist/index.html")
+
+
 
 @app.post("/upload")
 async def upload_file(
