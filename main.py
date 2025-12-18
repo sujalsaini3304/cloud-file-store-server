@@ -26,12 +26,12 @@ app.add_middleware(
 )
 
 
-@app.get("/")
-def root():
-    return {
-        "message":"Server is running",
-        "status":200
-    }
+# @app.get("/")
+# def root():
+#     return {
+#         "message":"Server is running",
+#         "status":200
+#     }
 
 
 
